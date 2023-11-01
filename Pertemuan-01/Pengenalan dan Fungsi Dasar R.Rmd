@@ -1,0 +1,484 @@
+---
+title: "Pengenalan dan Fungsi Dasar R"
+author: "Eko Teguh Widodo"
+date: "2023-11-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Variabel
+
+Variabel mempunyai aturan dalam penulisannya. Umumnya adalah sebagai berikut
+
+-   Variabel dapat terdiri dari komposisi huruf (a-z/A-Z), angka (0-9) atau karakter *underscore* atau *period*
+
+-   Variabel yang diawali dengan karakter *underscore* tidak diizinkan
+
+-   Variabel yang diawali dengan karakter period diizinkan tetapi tidak dapat diikuti oleh angka
+
+-   Variabel yang terdiri dari huruf dapat berupa *uppercase* atau *lowercase*
+
+-   Variabel tidak diperkenankan menggunakan reserved words, kata-kata yang sudah dipakai/didefinisikan oleh R, misalkan **if, for, break, TRUE**, dsb
+
+-   Karakter spesial lain, seperti #, & tidak bisa digunakan dalam pembentukan variabel
+
+```{r, echo=FALSE}
+
+nama <- "teguh" # _nama tidak diizinkan
+nama_depan <- "eko teguh"
+nama.belakang <- "widodo"
+nama10 <- "nama 10"
+.alamat <- "bandar lampung" # tapi .100alamat tidak diizinkan
+TINGGI_BADAN <- 175
+for <- "for" # Reserved words
+&number <- 10
+```
+
+## Menyimpan Data dalam Variabel
+
+Untuk menyimpan data dalam suatu variabel, kita bisa menggunakan fungsi ***c*** dimana fungsi tersebut menggabungkan suatu nilai data dengan nilai data lainnya.
+
+```{r echo=FALSE}
+tinggi_badan <- c(175, 173, 171, 160, 168, 168, 172)
+tinggi_badan
+```
+
+## Mengakses Nilai Data dalam Variabel secara Individual
+
+Misalkan dari data **tinggi_badan** di atas, kita ingin mengambil nilai data pada posisi ke-3 (171 cm):
+
+```{r echo=FALSE}
+tinggi_badan[3]
+```
+
+Bagaimana jika kita ingin mendapatkan nilai data dari **tinggi_badan** pada posisi ke-1, ke-3, dan ke-6? kita bisa gunakan fungsi c dengan memasukkan posisi ke dalamnya:
+
+```{r echo=FALSE}
+tinggi_badan[c(1,3,6)]
+```
+
+Lalu, bagaimana jika posisinya berurutan? Misalkan kita ingin mendapatkan nilai suatu data pada posisi ke-3 sampai dengan posisi ke-6? Kita bisa menggunakan **[start:stop]** seperti di bawah ini:
+
+```{r echo=FALSE}
+tinggi_badan[3:6]
+```
+
+## Mengubah Nilai Data dalam Variabel
+
+Pada kode sebelumnya, untuk mendapatkan nilai data pada posisi tertentu, kita menggunakan **tinggi_badan[posisi]**. Misalkan nilai data pada posisi ke-5, yaitu 168 cm akan kita ubah menjadi 169 cm.
+
+```{r echo=FALSE}
+tinggi_badan[5] = 169
+tinggi_badan
+```
+
+## Menghapus Nilai Data dalam Variabel
+
+Untuk menghapus nilai data pada variabel tinggi_badan, misalkan kita ingin menghapus tinggi badan 173 cm dimana ada di posisi ke-2, maka proses menghapus data tersebut adalah sebagai berikut.
+
+```{r echo=FALSE}
+tinggi_badan_hapus = tinggi_badan[-2]
+tinggi_badan_hapus
+```
+
+Bagaimana jika kita ingin menghapus tinggi badan 175 cm (posisi ke-1) dan 160 cm (posisi ke-4)? Kita bisa menggunakan fungsi **c** untuk menghapusnya.
+
+```{r echo=FALSE}
+tinggi_badan_hapus_dua = tinggi_badan[c(-1, -4)]
+tinggi_badan_hapus_dua
+```
+
+## Tipe Data
+
+Tipe data secara umum ada **integer**, **numeric**, **character**, dan **logical**. Untuk mengetahui kelas dari suatu objek, kita bisa menggunakan fungsi **typeof()**
+
+```{r, echo=FALSE}
+
+typeof("semangat")
+typeof(18L)
+typeof(19.5)
+typeof(FALSE)
+```
+
+Ada juga tipe data lain, seperti **complex** (bilangan kompleks), **factor** (dapat berupa numerik atau string, walau pada prosesnya akan terbaca sebagai angka), **raw** (segala jenis data yang disimpan sebagai raw bytes).
+
+```{r, echo=FALSE}
+
+typeof(3i+2)
+typeof(NULL)
+typeof(NA)
+typeof(NaN)
+```
+
+## Penggunaan Operator
+
+Ada beberapa operator yang kita kenal, yaitu operator **perbandingan**, **logika**, dan **aritmatika**. Ada juga operator **penugasan** yang nanti juga kita pelajari.
+
+### Operator Aritmatika
+
+Operator aritmatika digunakan untuk melakukan operasi matematika, seperti tambah, kurang, kali, bagi, dsb. Operator aritmatika di R antara lain sebagai berikut.
+
+| Simbol Operator | Makna              |
+|-----------------|--------------------|
+| \+              | Penjumlahan        |
+| \-              | Pengurangan        |
+| \*              | Perkalian          |
+| /               | Pembagian          |
+| \^              | Perpangkatan       |
+| %%              | Modulus/ Sisa bagi |
+
+Contoh penggunaan operator aritmatika di R:
+
+```{r, echo=FALSE}
+bilangan_1 <- 10
+bilangan_2 <- 5
+
+# Fungsi cat() digunakan untuk mencetak sesuatu yang ingin ditampilkan
+# Tanda "\n" digunakan untuk pindah baris
+
+# Operasi Penjumlahan
+hasil <- bilangan_1 + bilangan_2
+cat("Hasil Penjumlahan : ", hasil, "\n")
+
+# Operasi Pengurangan
+hasil <- bilangan_1 - bilangan_2
+cat("Hasil Pengurangan : ", hasil, "\n")
+
+# Operasi Perkalian
+hasil <- bilangan_1 * bilangan_2
+cat("Hasil Perkalian : ", hasil, "\n")
+
+# Operasi Pembagian
+hasil <- bilangan_1 / bilangan_2
+cat("Hasil Pembagian : ", hasil, "\n")
+
+# Operasi Perpangkatan
+hasil <- bilangan_1 ^ bilangan_2
+cat("Hasil Perpangkatan : ", hasil, "\n")
+
+# Operasi Modulus
+hasil <- bilangan_1 %% bilangan_2
+cat("Hasil Modulus : ", hasil, "\n")
+```
+
+### Operator Perbandingan
+
+Operator perbandingan digunakan untuk membandingkan dua nilai yang menghasilkan nilai TRUE atau FALSE. Operator perbandingan di R antara lain adalah:
+
+| Simbol Operator | Makna                             |
+|-----------------|-----------------------------------|
+| \>              | Lebih besar dari                  |
+| \<              | Lebih kecil dari                  |
+| \>=             | Lebih besar atau sama dengan dari |
+| \<=             | Lebih kecil atau sama dengan dari |
+| ==              | Sama dengan dari                  |
+| !=              | Tidak sama dengan dari            |
+
+Contoh penggunaan operator perbandingan di R:
+
+```{r, echo=FALSE}
+
+nilai_1 <- 10
+nilai_2 <- 5
+
+# Fungsi cat() digunakan untuk mencetak sesuatu yang ingin ditampilkan
+
+cat("nilai_1 > nilai_2 = " ,nilai_1 > nilai_2, "\n")
+cat("nilai_1 < nilai_2 = " ,nilai_1 < nilai_2, "\n")
+cat("nilai_1 >= nilai_2 = " ,nilai_1 >= nilai_2, "\n")
+cat("nilai_1 <= nilai_2 = " ,nilai_1 <= nilai_2, "\n")
+cat("nilai_1 == nilai_2 = " ,nilai_1 == nilai_2, "\n")
+cat("nilai_1 != nilai_2 = " ,nilai_1 != nilai_2, "\n") 
+```
+
+### Operator Logika
+
+Operator ini digunakan untuk operasi logika, seperti and, or, not. Operator logika di R antara lain:
+
+| Simbol Operator | Makna                                             |
+|-----------------|---------------------------------------------------|
+| &               | Bernilai TRUE jika kedua nilai variabel TRUE      |
+| \|\|            | Bernilai TRUE jika salah satu nilai variabel TRUE |
+| !               | Bernilai TRUE jika nilai variabel FALSE           |
+
+Contoh penggunaan operator logika di R:
+
+```{r, echo=FALSE}
+
+nilai_1 <- TRUE
+nilai_2 <- FALSE
+nilai_3 <- TRUE
+
+# Logika AND
+cat("nilai_1 and nilai_2 = ",nilai_1 & nilai_2, "\n")
+cat("nilai_1 and nilai_3 = ",nilai_1 & nilai_3, "\n")
+
+# Logika OR
+cat("nilai_1 and nilai_2 = ",nilai_1 || nilai_2, "\n")
+cat("nilai_1 and nilai_3 = ",nilai_1 || nilai_3, "\n")
+
+# Logika NOT
+cat("not nilai_1 = ",!nilai_1, "\n")
+cat("not nilai_2 = ",!nilai_2, "\n")
+```
+
+### Operator Penugasan
+
+Operator ini digunakan untuk memberikan nilai ke suatu variabel (*assign*). Simbol operator ini adalah:
+
+| Simbol Operator |
+|-----------------|
+| \<-             |
+| \<\<-           |
+| -\>             |
+| -\>\>           |
+
+Contoh penggunaan operator penugasan di R:
+
+```{r, echo=FALSE}
+
+a <- 1
+b <<- 2
+3 -> c
+4 ->> d
+
+# Fungsi print() digunakan untuk menampilkan output
+
+print(a)
+print(b)
+print(c)
+print(d)
+```
+
+## Contoh Penerapan Penggunaan Operator
+
+Dari contoh-contoh Penggunaan Operator yang diberikan di atas, kita bisa manfaatkan apabila jumlah datanya lebih banyak. Misalkan terdapat data hasil ujian matematika, sebagai berikut.
+
+```{r, echo=FALSE}
+
+ujian_mtk <- c(95, 100, 80, 77, 96, 67, 65, 30, 24, 38, 78, 100, 88, 79, 64)
+
+# Mendapatkan nilai ujian yang lebih besar dari 75
+ujian_mtk[ujian_mtk>75]
+
+# Mendapatkan nilai ujian yang nilainya 60  ke bawah untuk remedial
+ujian_mtk[ujian_mtk<=60]
+
+# Mendapatkan nilai ujian antara 80-100
+ujian_mtk[ujian_mtk>=80 & ujian_mtk<=100]
+```
+
+## Percabangan Pada R
+
+Percabangan adalah pernyataan kondisional yang memungkinkan sistem memilih opsi berdasarkan input pengguna. Bentuk paling sederhana adalah pernyataan **jika... maka...**
+
+Ilustrasi sederhana dari percabangan semisal kita ingin pergi ke kampus jika tidak hujan. Tapi jika hujan tidak pergi ke kampus. Pernyataan ini akan lebih jelas jika dituliskan sebagai berikut.
+
+***Jika** tidak hujan **maka** pergi ke kampus*
+
+***JIka** hujan **maka** tidak pergi ke kampus*
+
+Contoh lain untuk percabangan lebih dari 2 pilihan. Misalkan kita ingin menentukan nilai akhir mahasiswa.
+
+***Jika** nilainya 81-100 **maka** dia mendapatkan nilai A*
+
+***Jika** nilainya 71-80 **maka** dia mendapatkan nilai B*
+
+***Jika** nilainya 61-70 **maka** dia mendapatkan nilai C*
+
+*dan seterusnya*
+
+Pada aplikasi R, cara penulisannya adalah sebagai berikut.
+
+```{yaml}
+# Percabangan dengan 2 opsi
+
+if(kondisi){
+   pernyataan 1
+}else{
+   pernyataan selain 1
+}
+
+# Percabangan dengan lebih dari 2 opsi, maka ditambahkan else if di antara if dan else
+
+if(kondisi){
+   pernyataan 1
+}else if(kondisi){
+   pernyataan 2
+}else{
+   pernyataan selain 1 dan 2 
+}
+```
+
+Implementasi dari percabangan tersebut adalah sebagai berikut.
+
+```{r, echo=FALSE}
+
+hujan <- "tidak"
+
+if (hujan == "tidak") {
+  print("pergi ke kampus")
+} else {
+  print("tidak pergi ke kampus")
+}
+```
+
+```{r, echo=FALSE}
+
+ujian_statistik <- readline(prompt = "Masukkan hasil ujian Statistika Dasar: ")
+
+if (ujian_statistik > 90) {
+  print("Luar biasa bagus!")
+} else if (ujian_statistik > 80) {
+  print("Sudah bagus")
+} else if (ujian_statistik > 70) {
+  print("Lumayan bagus")
+} else if (ujian_statistik > 60) {
+  print("Cukup bagus")
+} else {
+  print("Belajar lagi ya!")
+}
+```
+
+## Perulangan Pada R
+
+Perulangan atau yang lebih dikenal dengan istilah *looping* adalah proses menjalankan aktivitas yang berulang-ulang.
+
+Misalkan kita ingin mencetak kata "Belajar Statistika Dasar di UTI" sebanyak 3 kali, maka kita bisa saja menuliskannya seperti berikut.
+
+```{r, echo=FALSE}
+
+print("Belajar Statistika Dasar di UTI")
+print("Belajar Statistika Dasar di UTI")
+print("Belajar Statistika Dasar di UTI")
+```
+
+Namun, bagaimana jika kita ingin mencetak sebanyak ratusan atau ribuan kali? Kita tidak dapat menyelesaikannya dengan cara di atas. Untuk itu, ada beberapa cara di perulangan dengan R yang bisa digunakan.
+
+### Menggunakan FOR
+
+Cara penulisan menggunakan FOR di R adalah sebagai berikut.
+
+```{yaml}
+
+for(variabel_iterasi in sequence){
+    statements(s)
+}
+```
+
+variabel_iterasi adalah variabel yang menampung nilai perulangan sedangkan sequence adalah kumpulan nilai yang terurut bisa berupa integer, string, list, atau yang lain.
+
+```{r, echo=FALSE}
+
+# Perulangan mencetak angka 1 sampai dengan 10
+
+for (i in 1:10) {
+  print(i)
+}
+
+# Perulangan mencetak nama mahasiswa
+
+mahasiswa <- list("eko", "teguh", "widodo")
+
+for (i in mahasiswa) {
+  print(i)
+}
+```
+
+### Menggunakan WHILE
+
+Biasanya while digunakan untuk perulangan yang tidak pasti kapan harus selesai. Berbeda dengan for yang sudah jelas akan mencetak berapa elemen.
+
+```{r, echo=FALSE}
+
+counter = 4
+
+while (counter > 0) {
+  print(counter)
+  counter <- counter - 1
+}
+```
+
+Kita bisa juga melakukan kombinasi perulangan dan percabangan.
+
+```{r, echo=FALSE}
+
+mahasiswa <- list("eko", "teguh", "widodo", "putri", "sukma", "dewi")
+
+for (nama in mahasiswa) {
+  if (nama == "putri") {
+    cat(nama, "akhirnya ketemu")
+    break
+  }
+}
+```
+
+## Penggunaan Fungsi di R
+
+Pada aplikasi R, kita bisa juga membuat suatu fungsi. Fungsi merupakan blok kode yang bisa digunakan kembali (*reuse*) ketika dipanggil kembali. Pada kode di atas, kita sudah mengenalkan beberapa fungsi bawaan dari R, yaitu *print()*, *cat()*.
+
+```{yaml}
+
+# Penulisan Fungsi
+
+nama_fungsi <- function() {
+  BLOK KODE PROGRAM
+}
+```
+
+Contoh sederhana adalah kita akan membuat fungsi **say_hello** dan menampilkan isinya.
+
+```{r, echo=FALSE}
+
+say_hello <- function() {
+  print("Halo, Selamat Datang di Perkuliahan Statistika Dasar")
+}
+
+say_hello()
+say_hello()
+```
+
+Kita bisa juga menambahkan parameter dari suatu fungsi.
+
+```{yaml}
+
+# Penulisan Fungsi dengan parameter
+
+nama_fungsi <- function(paramter) {
+  BLOK KODE PROGRAM
+}
+```
+
+Contoh penggunaannya adalah misal dengan menambahkan parameter **nama** pada fungsi **say_hello** di atas.
+
+```{r, echo=FALSE}
+
+say_hello_param <- function(nama) {
+  cat("Halo,", nama ,"! ","Selamat Datang di Perkuliahan Statistika Dasar\n")
+}
+
+say_hello_param("Teguh")
+say_hello_param("Putri")
+```
+
+Kita bisa memperluas penggunaan fungsi ini misal untuk menghitung sesuatu. Dari nilai ujian matematika, kita ingin mendapatkan rata-ratanya.
+
+```{r, echo=FALSE}
+
+ujian_mtk <- c(95, 100, 80, 77, 96, 67, 65, 30, 24, 38, 78, 100, 88, 79, 64)
+
+rata_rata <- function(x)
+{
+  total <- 0
+  for (i in 1 : length(x)) {
+    total <- total + x[i]
+  }
+  
+  return(total/length(x))
+}
+
+rata_rata(ujian_mtk)
+```
