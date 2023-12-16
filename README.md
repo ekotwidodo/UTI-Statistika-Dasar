@@ -7,3 +7,4 @@ Detil Pertemuan:
 - **Pertemuan 2**: Penyajian Data dan Penerapannya di BPS, penyajian data di R
 - **Pertemuan 3**: Ukuran Statistik dan Penerapannya di BPS, ukuran statistik di R
 - **Pertemuan 4**: Korelasi, Regresi Linier, dan Normalitas, penerapan di R
+- **Pertemuan 5-6**: Hipotesis, penerapan di R
